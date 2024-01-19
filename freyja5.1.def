@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+Stage: condabuild
+
+%files
+freyja1.4.4.yml
+installation.sh
+
+%post
+
+apt update
+apt upgrade -y
+apt -y install sshpass zip
+
+/opt/conda/bin/conda env create -f freyja1.4.4.yml
+bash installation.sh
+
+%runscript
+
+bash artisan2.sh target_files.csv
